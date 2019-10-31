@@ -22,7 +22,9 @@ struct ListTemplate<'a> {
 }
 
 fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
-    Ok(HttpResponse::Ok().content_type("text/html").body(&s.render().unwrap()))
+    Ok(HttpResponse::Ok()
+        .content_type("text/html")
+        .body(&s.render().unwrap()))
 }
 
 fn top_composers() -> Result<HttpResponse> {
@@ -52,8 +54,8 @@ pub fn start_server() {
             .route("/composer/{composerid}", web::get().to(composer))
             .route("/{listslug}", web::get().to(list))
     })
-        .bind("127.0.0.1:8088")
-        .unwrap()
-        .run()
-        .unwrap();
+    .bind("127.0.0.1:8088")
+    .unwrap()
+    .run()
+    .unwrap();
 }
