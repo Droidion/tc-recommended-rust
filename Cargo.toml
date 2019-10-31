@@ -1,0 +1,9 @@
+[package]
+name = "tc-recommended"
+version = "0.1.0"
+authors = ["Denis Rodionov <zunh@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+actix-web = "1.0"
+askama = "0.8"

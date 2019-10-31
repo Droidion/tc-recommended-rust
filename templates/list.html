@@ -1,5 +1,9 @@
-<html>
-{{~> partials/head title = "List" ~}}
-<body>
-<h1>Top composers</h1>
-</body></html>
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block head %}
+<h1>List {{ listslug }}</h1>
+{% endblock %}
