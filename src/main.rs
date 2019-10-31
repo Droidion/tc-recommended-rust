@@ -1,60 +1,13 @@
-extern crate askama;
-use actix_web::{web, App, HttpResponse, HttpServer, Result};
-use askama::Template;
-
-#[derive(Template)]
-#[template(path = "top-composers.html")]
-struct TopComposersTemplate<'a> {
-    title: &'a str,
-}
-
-#[derive(Template)]
-#[template(path = "composer.html")]
-struct ComposerTemplate<'a> {
-    title: &'a str,
-    composerid: &'a u32,
-}
-
-#[derive(Template)]
-#[template(path = "list.html")]
-struct ListTemplate<'a> {
-    title: &'a str,
-    listslug: &'a str,
-}
-
-fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
-    Ok(HttpResponse::Ok().content_type("text/html").body(&s.render().unwrap()))
-}
-
-fn top_composers() -> Result<HttpResponse> {
-    render_page(&TopComposersTemplate {
-        title: "Best composers",
-    })
-}
-
-fn composer(info: web::Path<u32>) -> Result<HttpResponse> {
-    render_page(&ComposerTemplate {
-        title: "Best composers",
-        composerid: &info,
-    })
-}
-
-fn list(info: web::Path<String>) -> Result<HttpResponse> {
-    render_page(&ListTemplate {
-        title: "Best composers",
-        listslug: &info,
-    })
-}
-
 fn main() {
-    HttpServer::new(|| {
-        App::new()
-            .route("/", web::get().to(top_composers))
-            .route("/composer/{composerid}", web::get().to(composer))
-            .route("/{listslug}", web::get().to(list))
-    })
-    .bind("127.0.0.1:8088")
-    .unwrap()
-    .run()
-    .unwrap();
+    tcrec::run();
 }
+
+// TODO
+// Look at content of CSV folder
+// Process all valid CSV files
+// The name of the CSV file is the name of the list
+// Make it into slugs by applying lower case and dashes, like "Art Songs" -> "art-songs"
+// Read file content into a vector of structs
+// Add composer slugs by doing lower case, stripping excessive symbols and replaceing spaces with dashes like "de Silva" -> "de-silva"
+// Have a function for building composer top list
+// Have a function for filtering works of a single composer
