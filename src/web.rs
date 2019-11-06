@@ -1,5 +1,6 @@
 use actix_web::{web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
+use crate::TopListItem;
 
 #[derive(Template)]
 #[template(path = "top-composers.html")]
@@ -19,6 +20,10 @@ struct ComposerTemplate<'a> {
 struct ListTemplate<'a> {
     title: &'a str,
     listslug: &'a str,
+}
+
+struct AppStore<'a> {
+    all_lists: &'a [TopListItem],
 }
 
 fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
@@ -48,8 +53,10 @@ fn list(info: web::Path<String>) -> Result<HttpResponse> {
 }
 
 pub fn start_server() {
-    HttpServer::new(|| {
+    HttpServer::new(move || {
+        println!("{:?}", *crate::LISTS);
         App::new()
+            //.data(AppStore{ all_lists: all_lists.as_slice() })
             .route("/", web::get().to(top_composers))
             .route("/composer/{composerid}", web::get().to(composer))
             .route("/{listslug}", web::get().to(list))
