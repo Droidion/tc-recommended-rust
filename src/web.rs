@@ -54,7 +54,7 @@ fn list(info: web::Path<String>) -> Result<HttpResponse> {
 
 pub fn start_server() {
     HttpServer::new(move || {
-        println!("{:?}", *crate::LISTS);
+        println!("{:?}", crate::filter_by_list_name(&crate::LISTS, String::from("Choral")));
         App::new()
             //.data(AppStore{ all_lists: all_lists.as_slice() })
             .route("/", web::get().to(top_composers))

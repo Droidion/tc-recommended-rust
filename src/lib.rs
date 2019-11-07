@@ -18,6 +18,10 @@ pub struct TopListItem {
     pub list_slug: String,
 }
 
+fn filter_by_list_name(items: &'static Vec<TopListItem>, name: String) -> Vec<&'static TopListItem> {
+    items.iter().filter(|item| item.list_name == name).collect()
+}
+
 fn load_top_list_from_csv() -> Vec<TopListItem> {
     let mut all_lists: Vec<TopListItem> = Vec::new();
     for entry in fs::read_dir("csv").unwrap() {
