@@ -15,18 +15,39 @@ pub struct TopListItem {
     pub work: String,
     pub list_name: String,
     pub list_slug: String,
+    pub is_delim: bool,
 }
 
 fn slug_to_name(slug: String) -> String {
     slug.replace("-", " ")
 }
 
-fn filter_by_list_name(items: &'static Vec<TopListItem>, name: String) -> Vec<&'static TopListItem> {
-    items.iter().filter(|item| item.list_name.to_lowercase() == name.to_lowercase()).collect()
+fn filter_by_list_name(
+    items: &'static Vec<TopListItem>,
+    name: String,
+) -> Vec<&'static TopListItem> {
+    items
+        .iter()
+        .filter(|item| item.list_name.to_lowercase() == name.to_lowercase())
+        .collect()
 }
 
-fn filter_by_composer_name(items: &'static Vec<TopListItem>, name: String) -> Vec<&'static TopListItem> {
-    items.iter().filter(|item| item.composer_name.to_lowercase() == name.to_lowercase()).collect()
+fn filter_by_composer_name(
+    items: &'static Vec<TopListItem>,
+    name: String,
+) -> Vec<(&str, Vec<&'static TopListItem>)> {
+    let mut res: Vec<(&str, Vec<&'static TopListItem>)> = vec![];
+    let filtered: Vec<&'static TopListItem> = items
+        .iter()
+        .filter(|item| item.composer_name.to_lowercase() == name.to_lowercase())
+        .collect();
+    for item in filtered {
+        match res.iter().position(|x| x.0 == item.list_name) {
+            Some(x) => res[x].1.push(item),
+            None => res.push((item.list_name.as_ref(), vec![item]))
+        }
+    }
+    res
 }
 
 fn load_top_list_from_csv() -> Vec<TopListItem> {
@@ -38,7 +59,8 @@ fn load_top_list_from_csv() -> Vec<TopListItem> {
         let mut rdr = ReaderBuilder::new()
             .has_headers(false)
             .delimiter(b'|')
-            .from_path(&dir_entry.path()).unwrap();
+            .from_path(&dir_entry.path())
+            .unwrap();
         for result in rdr.records() {
             let record = result.unwrap();
             all_lists.push(TopListItem {
@@ -47,6 +69,7 @@ fn load_top_list_from_csv() -> Vec<TopListItem> {
                 work: record[1].parse().unwrap(),
                 list_name: file_name.clone(),
                 list_slug: String::from("asdasd"),
+                is_delim: false,
             });
         }
     }

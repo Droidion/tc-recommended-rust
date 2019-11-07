@@ -7,8 +7,11 @@
 {% block content %}
 <h1>Composer id {{ composerslug }}</h1>
 {% for item in items %}
+<h2>{{ item.0 }}</h2>
+{% for work in item.1 %}
 <div>
-    <span>{{ item.work }}</span>
+    <span>{{ work.work }}</span>
 </div>
+{% endfor %}
 {% endfor %}
 {% endblock %}

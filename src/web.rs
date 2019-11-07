@@ -13,7 +13,7 @@ struct TopComposersTemplate<'a> {
 struct ComposerTemplate<'a> {
     title: &'a str,
     composerslug: &'a str,
-    items: &'a Vec<&'a TopListItem>,
+    items: &'a Vec<(&'a str, Vec<&'static TopListItem>)>,
 }
 
 #[derive(Template)]
@@ -37,7 +37,8 @@ fn top_composers() -> Result<HttpResponse> {
 }
 
 fn composer(info: web::Path<String>) -> Result<HttpResponse> {
-    let items = crate::filter_by_composer_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
+    let items =
+        crate::filter_by_composer_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
     render_page(&ComposerTemplate {
         title: "Best composers",
         composerslug: &info,
