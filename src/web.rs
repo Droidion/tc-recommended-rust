@@ -1,6 +1,6 @@
+use crate::TopListItem;
 use actix_web::{web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
-use crate::TopListItem;
 
 #[derive(Template)]
 #[template(path = "top-composers.html")]
@@ -12,7 +12,8 @@ struct TopComposersTemplate<'a> {
 #[template(path = "composer.html")]
 struct ComposerTemplate<'a> {
     title: &'a str,
-    composerid: &'a u32,
+    composerslug: &'a str,
+    items: &'a Vec<&'a TopListItem>,
 }
 
 #[derive(Template)]
@@ -20,10 +21,7 @@ struct ComposerTemplate<'a> {
 struct ListTemplate<'a> {
     title: &'a str,
     listslug: &'a str,
-}
-
-struct AppStore<'a> {
-    all_lists: &'a [TopListItem],
+    items: &'a Vec<&'a TopListItem>,
 }
 
 fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
@@ -38,27 +36,29 @@ fn top_composers() -> Result<HttpResponse> {
     })
 }
 
-fn composer(info: web::Path<u32>) -> Result<HttpResponse> {
+fn composer(info: web::Path<String>) -> Result<HttpResponse> {
+    let items = crate::filter_by_composer_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
     render_page(&ComposerTemplate {
         title: "Best composers",
-        composerid: &info,
+        composerslug: &info,
+        items: &items,
     })
 }
 
 fn list(info: web::Path<String>) -> Result<HttpResponse> {
+    let items = crate::filter_by_list_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
     render_page(&ListTemplate {
         title: "Best composers",
         listslug: &info,
+        items: &items,
     })
 }
 
 pub fn start_server() {
     HttpServer::new(move || {
-        println!("{:?}", crate::filter_by_list_name(&crate::LISTS, String::from("Choral")));
         App::new()
-            //.data(AppStore{ all_lists: all_lists.as_slice() })
             .route("/", web::get().to(top_composers))
-            .route("/composer/{composerid}", web::get().to(composer))
+            .route("/composer/{composerslug}", web::get().to(composer))
             .route("/{listslug}", web::get().to(list))
     })
     .bind("127.0.0.1:8088")

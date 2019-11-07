@@ -4,6 +4,12 @@
 <title>{{ title }}</title>
 {% endblock %}
 
-{% block head %}
+{% block content %}
 <h1>List {{ listslug }}</h1>
+{% for item in items %}
+<div>
+    <span>{{ item.composer_name }}</span>
+    <span>{{ item.work }}</span>
+</div>
+{% endfor %}
 {% endblock %}

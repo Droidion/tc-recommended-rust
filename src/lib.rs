@@ -3,7 +3,6 @@ extern crate askama;
 #[macro_use]
 extern crate lazy_static;
 
-use std::error::Error;
 use csv::ReaderBuilder;
 use std::fs;
 
@@ -18,8 +17,16 @@ pub struct TopListItem {
     pub list_slug: String,
 }
 
+fn slug_to_name(slug: String) -> String {
+    slug.replace("-", " ")
+}
+
 fn filter_by_list_name(items: &'static Vec<TopListItem>, name: String) -> Vec<&'static TopListItem> {
-    items.iter().filter(|item| item.list_name == name).collect()
+    items.iter().filter(|item| item.list_name.to_lowercase() == name.to_lowercase()).collect()
+}
+
+fn filter_by_composer_name(items: &'static Vec<TopListItem>, name: String) -> Vec<&'static TopListItem> {
+    items.iter().filter(|item| item.composer_name.to_lowercase() == name.to_lowercase()).collect()
 }
 
 fn load_top_list_from_csv() -> Vec<TopListItem> {

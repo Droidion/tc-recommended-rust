@@ -4,6 +4,11 @@
 <title>{{ title }}</title>
 {% endblock %}
 
-{% block head %}
-<h1>Composer id {{ composerid }}</h1>
+{% block content %}
+<h1>Composer id {{ composerslug }}</h1>
+{% for item in items %}
+<div>
+    <span>{{ item.work }}</span>
+</div>
+{% endfor %}
 {% endblock %}
