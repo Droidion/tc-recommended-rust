@@ -9,7 +9,7 @@
 {% for item in items %}
 <div>
     <span>{{ item.position }}</span>
-    <span>{{ item.composer_name }}</span>
+    <span><a href="/composer/{{ item.composer_slug }}">{{ item.composer_name }}</a></span>
     <span>{{ item.work }}</span>
 </div>
 {% endfor %}

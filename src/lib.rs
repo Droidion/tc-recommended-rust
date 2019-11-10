@@ -18,11 +18,6 @@ pub struct TopListItem {
     pub position: usize,
 }
 
-struct MenuItem {
-    title: String,
-    slug: String,
-}
-
 fn slug_to_name(slug: String) -> String {
     slug.replace("-", " ")
 }
@@ -84,19 +79,51 @@ fn load_top_list_from_csv() -> Vec<TopListItem> {
     all_lists
 }
 
-fn get_menu(items: &'static Vec<TopListItem>) -> Vec<(String, String)> {
+fn get_menu(items: &'static Vec<TopListItem>) -> Vec<(String, String, usize)> {
     let mut menu: Vec<(String, String)> = items
         .iter()
         .map(|el| (el.list_name.clone(), el.list_slug.clone()))
         .collect();
     menu.sort();
     menu.dedup();
-    menu
+    menu.iter().map(|el| {
+        let filtered: Vec<&'static TopListItem> = items
+            .iter()
+            .filter(|item| item.list_slug == el.1)
+            .collect();
+        (el.0.clone(), el.1.clone(), filtered.len())
+    }).collect()
+}
+
+fn get_top_composers(items: &'static Vec<TopListItem>, menu: &'static Vec<(String, String, usize)>) -> Vec<(String, String, usize)> {
+    let mut composers: Vec<(String, String)> = items
+        .iter()
+        .map(|el| (el.composer_name.clone(), el.composer_slug.clone()))
+        .collect();
+    composers.sort();
+    composers.dedup();
+    let mut composers_with_scores: Vec<(String, String, usize)> = composers.iter().map(|el| {
+        // initialize score
+        let mut score: usize = 0;
+        // find all items for this composer
+        let items_for_composer: Vec<&'static TopListItem> = items.iter().filter(|item| item.composer_slug == el.1).collect();
+        // calc and score based on this list length
+        for composer_item in items_for_composer {
+            match menu.iter().find(|menu_item| menu_item.1 == composer_item.list_slug) {
+                Some(x) => score += 1000 * x.2 / composer_item.position,
+                None => ()
+            }
+        }
+        (el.0.clone(), el.1.clone(), score)
+    }).collect();
+    composers_with_scores.sort_by(|a, b| b.2.cmp(&a.2));
+    composers_with_scores
 }
 
 lazy_static! {
     static ref LISTS: Vec<TopListItem> = load_top_list_from_csv();
-    static ref MENU: Vec<(String, String)> = get_menu(&LISTS);
+    static ref MENU: Vec<(String, String, usize)> = get_menu(&LISTS);
+    static ref COMPOSERS: Vec<(String, String, usize)> = get_top_composers(&LISTS, &MENU);
 }
 
 pub fn run() {

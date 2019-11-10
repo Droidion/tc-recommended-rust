@@ -6,7 +6,8 @@ use askama::Template;
 #[template(path = "top-composers.html")]
 struct TopComposersTemplate<'a> {
     title: &'a str,
-    menu: &'a Vec<(String, String)>,
+    items: &'a Vec<(String, String, usize)>,
+    menu: &'a Vec<(String, String, usize)>,
 }
 
 #[derive(Template)]
@@ -15,7 +16,7 @@ struct ComposerTemplate<'a> {
     title: &'a str,
     composerslug: &'a str,
     items: &'a Vec<(&'a str, Vec<&'static TopListItem>)>,
-    menu: &'a Vec<(String, String)>,
+    menu: &'a Vec<(String, String, usize)>,
 }
 
 #[derive(Template)]
@@ -24,7 +25,7 @@ struct ListTemplate<'a> {
     title: &'a str,
     listslug: &'a str,
     items: &'a Vec<&'a TopListItem>,
-    menu: &'a Vec<(String, String)>,
+    menu: &'a Vec<(String, String, usize)>,
 }
 
 fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
@@ -36,6 +37,7 @@ fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
 fn top_composers() -> Result<HttpResponse> {
     render_page(&TopComposersTemplate {
         title: "Best composers",
+        items: &crate::COMPOSERS,
         menu: &crate::MENU,
     })
 }
@@ -65,6 +67,7 @@ pub fn start_server() {
     HttpServer::new(move || {
         App::new()
             .route("/", web::get().to(top_composers))
+            .route("/top-composers", web::get().to(top_composers))
             .route("/composer/{composerslug}", web::get().to(composer))
             .route("/{listslug}", web::get().to(list))
     })

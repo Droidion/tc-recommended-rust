@@ -7,9 +7,12 @@
 </head>
 <body>
 <aside>
+    <div>
+        <a href="/top-composers">Top composers</a>
+    </div>
     {% for item in menu %}
     <div>
-        <a href="/{{ item.1 }}">{{ item.0 }}</a>
+        <a href="/{{ item.1 }}">{{ item.0 }} Top {{ item.2 }}</a>
     </div>
     {% endfor %}
 </aside>
