@@ -1,5 +1,5 @@
 use crate::TopListItem;
-use actix_web::{web, App, HttpResponse, HttpServer, Result};
+use actix_web::{web, App, middleware, HttpResponse, HttpServer, Result};
 use askama::Template;
 use inflector::cases::titlecase::to_title_case;
 
@@ -63,6 +63,7 @@ fn list(info: web::Path<String>) -> Result<HttpResponse> {
 pub fn start_server() {
     HttpServer::new(move || {
         App::new()
+            .wrap(middleware::Compress::default())
             .route("/", web::get().to(top_composers))
             .route("/top-composers", web::get().to(top_composers))
             .route("/composer/{composerslug}", web::get().to(composer))
