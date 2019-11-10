@@ -75,13 +75,13 @@ header {
 .content {
     border-radius: var(--border-radius);
     flex: 1;
-    padding: .6rem 2rem 1rem 2rem;
+    padding: 1rem 3rem 2rem 3rem;
 }
 
 aside {
     border-radius: var(--border-radius);
     margin-right: 1rem;
-    padding: .5rem 1rem;
+    padding: 1rem 2rem;
     position: -webkit-sticky;
     position: sticky;
     top: -.5rem;
