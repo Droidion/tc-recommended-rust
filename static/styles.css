@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400&display=swap');
+
 :root {
     --main-color: #ECEFF4;
     --selected-color: #5E81AC;
@@ -7,6 +9,8 @@
     --accented-bg-color: #434C5E;
 
     --global-desktop-width: 948px;
+
+    --border-radius: .5rem;
 }
 
 html, body {
@@ -17,14 +21,20 @@ html, body {
 body {
     background-color: var(--main-bg-color);
     color: var(--main-color);
+    font-family: 'Roboto', sans-serif;
     font-size: 18px;
 }
 
 a {
     color: var(--accented-color-darker);
+    text-decoration: none;
 }
 a:hover {
     color: var(--selected-color);
+}
+
+h1, h2 {
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 h1 {
@@ -40,27 +50,56 @@ aside, .content, header {
 }
 
 header {
-    margin: 0 auto 1rem auto;
+    border-radius: var(--border-radius);
+    margin: 1rem auto;
     text-align: center;
     width: var(--global-desktop-width);
+}
+.title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.8rem;
+    padding: 1rem 0 .4rem 0;
+}
+.subtitle {
+    padding-bottom: 1rem;
 }
 
 .wrapper {
     align-items: flex-start;
     display: flex;
-    margin: 0 auto;
+    margin: 0 auto 1rem auto;
     width: var(--global-desktop-width);
 }
 
 .content {
+    border-radius: var(--border-radius);
     flex: 1;
-    padding: 0 2rem 2rem 2rem;
+    padding: .6rem 2rem 1rem 2rem;
 }
 
 aside {
+    border-radius: var(--border-radius);
     margin-right: 1rem;
-    padding: 1rem;
+    padding: .5rem 1rem;
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: -.5rem;
+}
+
+aside div, .content div {
+    line-height: 2.4rem;
+}
+
+.list-el-position {
+    font-size: 1.1rem;
+    padding-right: .4rem;
+}
+.list-el-composer {
+    font-size: 1.1rem;
+    font-weight: 300;
+    padding-right: .4rem;
+}
+.list-el-work {
+    color: var(--accented-color-brighter);
+    font-size: .9rem;
 }

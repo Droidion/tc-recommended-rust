@@ -8,9 +8,9 @@
 <h1>{{ listslug }}</h1>
 {% for item in items %}
 <div>
-    <span>{{ item.position }}</span>
-    <span><a href="/composer/{{ item.composer_slug }}">{{ item.composer_name }}</a></span>
-    <span>{{ item.work }}</span>
+    <span class="list-el-position">{{ item.position }}</span>
+    <span class="list-el-composer"><a href="/composer/{{ item.composer_slug }}">{{ item.composer_name }}</a></span>
+    <span class="list-el-work">{{ item.work }}</span>
 </div>
 {% endfor %}
 {% endblock %}
