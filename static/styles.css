@@ -1,0 +1,66 @@
+:root {
+    --main-color: #ECEFF4;
+    --selected-color: #5E81AC;
+    --accented-color-darker: #8FBCBB;
+    --accented-color-brighter: #88C0D0;
+    --main-bg-color: #2E3440;
+    --accented-bg-color: #434C5E;
+
+    --global-desktop-width: 948px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    font-size: 18px;
+}
+
+a {
+    color: var(--accented-color-darker);
+}
+a:hover {
+    color: var(--selected-color);
+}
+
+h1 {
+    font-size: 1.3rem;
+}
+
+h2 {
+    font-size: 1.1rem;
+}
+
+aside, .content, header {
+    background-color: var(--accented-bg-color);
+}
+
+header {
+    margin: 0 auto 1rem auto;
+    text-align: center;
+    width: var(--global-desktop-width);
+}
+
+.wrapper {
+    align-items: flex-start;
+    display: flex;
+    margin: 0 auto;
+    width: var(--global-desktop-width);
+}
+
+.content {
+    flex: 1;
+    padding: 0 2rem 2rem 2rem;
+}
+
+aside {
+    margin-right: 1rem;
+    padding: 1rem;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}

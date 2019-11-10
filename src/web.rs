@@ -1,4 +1,5 @@
 use crate::TopListItem;
+use actix_files as fs;
 use actix_web::{web, App, middleware, HttpResponse, HttpServer, Result};
 use askama::Template;
 use inflector::cases::titlecase::to_title_case;
@@ -64,6 +65,7 @@ pub fn start_server() {
     HttpServer::new(move || {
         App::new()
             .wrap(middleware::Compress::default())
+            .service(fs::Files::new("/static", "./static"))
             .route("/", web::get().to(top_composers))
             .route("/top-composers", web::get().to(top_composers))
             .route("/composer/{composerslug}", web::get().to(composer))
