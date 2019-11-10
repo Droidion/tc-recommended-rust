@@ -52,6 +52,7 @@ fn filter_by_composer_name(
             None => res.push((item.list_name.as_ref(), vec![item])),
         }
     }
+    res.sort_by(|a, b| a.0.cmp(&b.0));
     res
 }
 
