@@ -6,8 +6,15 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-<div id="content">
+<aside>
+    {% for item in menu %}
+    <div>
+        <a href="/{{ item.1 }}">{{ item.0 }}</a>
+    </div>
+    {% endfor %}
+</aside>
+<section id="content">
     {% block content %}{% endblock %}
-</div>
+</section>
 </body>
 </html>

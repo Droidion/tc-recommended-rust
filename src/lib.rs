@@ -18,11 +18,16 @@ pub struct TopListItem {
     pub position: usize,
 }
 
+struct MenuItem {
+    title: String,
+    slug: String,
+}
+
 fn slug_to_name(slug: String) -> String {
     slug.replace("-", " ")
 }
 fn name_to_slug(slug: String) -> String {
-    slug.replace(" ", "-")
+    slug.replace(" ", "-").to_lowercase()
 }
 
 fn filter_by_list_name(
@@ -47,7 +52,7 @@ fn filter_by_composer_name(
     for item in filtered {
         match res.iter().position(|x| x.0 == item.list_name) {
             Some(x) => res[x].1.push(item),
-            None => res.push((item.list_name.as_ref(), vec![item]))
+            None => res.push((item.list_name.as_ref(), vec![item])),
         }
     }
     res
@@ -79,8 +84,19 @@ fn load_top_list_from_csv() -> Vec<TopListItem> {
     all_lists
 }
 
+fn get_menu(items: &'static Vec<TopListItem>) -> Vec<(String, String)> {
+    let mut menu: Vec<(String, String)> = items
+        .iter()
+        .map(|el| (el.list_name.clone(), el.list_slug.clone()))
+        .collect();
+    menu.sort();
+    menu.dedup();
+    menu
+}
+
 lazy_static! {
     static ref LISTS: Vec<TopListItem> = load_top_list_from_csv();
+    static ref MENU: Vec<(String, String)> = get_menu(&LISTS);
 }
 
 pub fn run() {

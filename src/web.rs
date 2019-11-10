@@ -6,6 +6,7 @@ use askama::Template;
 #[template(path = "top-composers.html")]
 struct TopComposersTemplate<'a> {
     title: &'a str,
+    menu: &'a Vec<(String, String)>,
 }
 
 #[derive(Template)]
@@ -14,6 +15,7 @@ struct ComposerTemplate<'a> {
     title: &'a str,
     composerslug: &'a str,
     items: &'a Vec<(&'a str, Vec<&'static TopListItem>)>,
+    menu: &'a Vec<(String, String)>,
 }
 
 #[derive(Template)]
@@ -22,6 +24,7 @@ struct ListTemplate<'a> {
     title: &'a str,
     listslug: &'a str,
     items: &'a Vec<&'a TopListItem>,
+    menu: &'a Vec<(String, String)>,
 }
 
 fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
@@ -33,6 +36,7 @@ fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
 fn top_composers() -> Result<HttpResponse> {
     render_page(&TopComposersTemplate {
         title: "Best composers",
+        menu: &crate::MENU,
     })
 }
 
@@ -43,6 +47,7 @@ fn composer(info: web::Path<String>) -> Result<HttpResponse> {
         title: "Best composers",
         composerslug: &info,
         items: &items,
+        menu: &crate::MENU,
     })
 }
 
@@ -52,6 +57,7 @@ fn list(info: web::Path<String>) -> Result<HttpResponse> {
         title: "Best composers",
         listslug: &info,
         items: &items,
+        menu: &crate::MENU,
     })
 }
 
