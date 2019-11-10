@@ -8,6 +8,7 @@
 <h1>List {{ listslug }}</h1>
 {% for item in items %}
 <div>
+    <span>{{ item.position }}</span>
     <span>{{ item.composer_name }}</span>
     <span>{{ item.work }}</span>
 </div>

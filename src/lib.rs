@@ -15,11 +15,14 @@ pub struct TopListItem {
     pub work: String,
     pub list_name: String,
     pub list_slug: String,
-    pub is_delim: bool,
+    pub position: usize,
 }
 
 fn slug_to_name(slug: String) -> String {
     slug.replace("-", " ")
+}
+fn name_to_slug(slug: String) -> String {
+    slug.replace(" ", "-")
 }
 
 fn filter_by_list_name(
@@ -61,15 +64,15 @@ fn load_top_list_from_csv() -> Vec<TopListItem> {
             .delimiter(b'|')
             .from_path(&dir_entry.path())
             .unwrap();
-        for result in rdr.records() {
+        for (i, result) in rdr.records().enumerate() {
             let record = result.unwrap();
             all_lists.push(TopListItem {
                 composer_name: record[0].parse().unwrap(),
-                composer_slug: String::from("asdasd"),
+                composer_slug: name_to_slug(record[0].parse().unwrap()),
                 work: record[1].parse().unwrap(),
                 list_name: file_name.clone(),
-                list_slug: String::from("asdasd"),
-                is_delim: false,
+                list_slug: name_to_slug(file_name.clone()),
+                position: i + 1,
             });
         }
     }
