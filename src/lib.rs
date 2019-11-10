@@ -3,6 +3,8 @@ extern crate askama;
 #[macro_use]
 extern crate lazy_static;
 
+extern crate inflector;
+
 use csv::ReaderBuilder;
 use std::fs;
 

@@ -1,6 +1,7 @@
 use crate::TopListItem;
 use actix_web::{web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
+use inflector::cases::titlecase::to_title_case;
 
 #[derive(Template)]
 #[template(path = "top-composers.html")]
@@ -47,7 +48,7 @@ fn composer(info: web::Path<String>) -> Result<HttpResponse> {
         crate::filter_by_composer_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
     render_page(&ComposerTemplate {
         title: "Best composers",
-        composerslug: &info,
+        composerslug: to_title_case(&info).as_str(),
         items: &items,
         menu: &crate::MENU,
     })
@@ -57,7 +58,7 @@ fn list(info: web::Path<String>) -> Result<HttpResponse> {
     let items = crate::filter_by_list_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
     render_page(&ListTemplate {
         title: "Best composers",
-        listslug: &info,
+        listslug: to_title_case(&info).as_str(),
         items: &items,
         menu: &crate::MENU,
     })
