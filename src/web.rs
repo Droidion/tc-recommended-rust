@@ -36,7 +36,7 @@ fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
 
 fn top_composers() -> Result<HttpResponse> {
     render_page(&TopComposersTemplate {
-        title: "Best composers",
+        title: "Top composers",
         items: &crate::COMPOSERS,
         menu: &crate::MENU,
     })

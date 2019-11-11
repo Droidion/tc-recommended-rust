@@ -8,8 +8,8 @@
 <h1>{{ title }}</h1>
 {% for item in items %}
 <div>
-    <span><a href="/composer/{{ item.1 }}">{{ item.0 }}</a></span>
-    <span>{{ item.2 }}</span>
+    <span class="list-el-composer"><a href="/composer/{{ item.1 }}">{{ item.0 }}</a></span>
+    <span class="list-el-rate">{{ item.2 }}</span>
 </div>
 {% endfor %}
 {% endblock %}

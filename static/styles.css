@@ -14,6 +14,7 @@
 }
 
 html, body {
+    font-size: 18px;
     margin: 0;
     padding: 0;
 }
@@ -22,7 +23,6 @@ body {
     background-color: var(--main-bg-color);
     color: var(--main-color);
     font-family: 'Roboto', sans-serif;
-    font-size: 18px;
 }
 
 a {
@@ -44,6 +44,7 @@ h1 {
 h2 {
     font-size: 1.1rem;
     margin-top: 1.6rem;
+    margin-bottom: 0.5rem;
 }
 
 aside, .content, header {
@@ -75,20 +76,20 @@ header {
 .content {
     border-radius: var(--border-radius);
     flex: 1;
-    padding: 1rem 3rem 2rem 3rem;
+    padding: .4rem 2rem 1rem 2rem;
 }
 
 aside {
     border-radius: var(--border-radius);
     margin-right: 1rem;
-    padding: 1rem 2rem;
+    padding: .8rem 1.6rem;
     position: -webkit-sticky;
     position: sticky;
     top: -.5rem;
 }
 
 aside div, .content div {
-    line-height: 2.4rem;
+    line-height: 2.2rem;
 }
 
 .list-el-position {
@@ -102,5 +103,9 @@ aside div, .content div {
 }
 .list-el-work {
     color: var(--accented-color-brighter);
+    font-size: .9rem;
+}
+.list-el-rate {
+    color: white;
     font-size: .9rem;
 }
