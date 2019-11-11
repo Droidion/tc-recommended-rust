@@ -7,8 +7,8 @@
 {% block content %}
 <h1>{{ composerslug }}</h1>
 {% for item in items %}
-<h2>{{ item.0 }}</h2>
-{% for work in item.1 %}
+<h2><a href="/{{ item.1 }}">{{ item.0 }}</a></h2>
+{% for work in item.2 %}
 <div>
     <span class="list-el-position">{{ work.position }}</span>
     <span class="list-el-work">{{ work.work }}</span>

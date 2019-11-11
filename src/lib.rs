@@ -40,16 +40,16 @@ fn filter_by_list_name(
 fn filter_by_composer_name(
     items: &'static Vec<TopListItem>,
     name: String,
-) -> Vec<(&str, Vec<&'static TopListItem>)> {
-    let mut res: Vec<(&str, Vec<&'static TopListItem>)> = vec![];
+) -> Vec<(&str, &str, Vec<&'static TopListItem>)> {
+    let mut res: Vec<(&str, &str, Vec<&'static TopListItem>)> = vec![];
     let filtered: Vec<&'static TopListItem> = items
         .iter()
         .filter(|item| item.composer_name.to_lowercase() == name.to_lowercase())
         .collect();
     for item in filtered {
         match res.iter().position(|x| x.0 == item.list_name) {
-            Some(x) => res[x].1.push(item),
-            None => res.push((item.list_name.as_ref(), vec![item])),
+            Some(x) => res[x].2.push(item),
+            None => res.push((item.list_name.as_ref(), item.list_slug.as_ref(), vec![item])),
         }
     }
     res.sort_by(|a, b| a.0.cmp(&b.0));

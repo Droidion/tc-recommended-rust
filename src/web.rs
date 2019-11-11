@@ -1,6 +1,6 @@
 use crate::TopListItem;
 use actix_files as fs;
-use actix_web::{web, App, middleware, HttpResponse, HttpServer, Result};
+use actix_web::{middleware, web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
 use inflector::cases::titlecase::to_title_case;
 
@@ -16,7 +16,7 @@ struct TopComposersTemplate<'a> {
 #[template(path = "composer.html")]
 struct ComposerTemplate<'a> {
     composerslug: &'a str,
-    items: &'a Vec<(&'a str, Vec<&'static TopListItem>)>,
+    items: &'a Vec<(&'a str, &'a str, Vec<&'static TopListItem>)>,
     menu: &'a Vec<(String, String, usize)>,
 }
 
