@@ -7,6 +7,7 @@ use askama::Template;
 #[template(path = "top-composers.html")]
 struct TopComposersTemplate<'a> {
     title: &'a str,
+    selected_slug: &'a str,
     items: &'a Vec<(String, String, usize)>,
     menu: &'a Vec<(String, String, usize)>,
 }
@@ -15,6 +16,7 @@ struct TopComposersTemplate<'a> {
 #[template(path = "composer.html")]
 struct ComposerTemplate<'a> {
     composerslug: &'a str,
+    selected_slug: &'a str,
     items: &'a Vec<(&'a str, &'a str, Vec<&'static TopListItem>)>,
     menu: &'a Vec<(String, String, usize)>,
 }
@@ -23,6 +25,7 @@ struct ComposerTemplate<'a> {
 #[template(path = "list.html")]
 struct ListTemplate<'a> {
     listslug: &'a str,
+    selected_slug: &'a str,
     items: &'a Vec<&'a TopListItem>,
     menu: &'a Vec<(String, String, usize)>,
 }
@@ -36,25 +39,31 @@ fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
 fn top_composers() -> Result<HttpResponse> {
     render_page(&TopComposersTemplate {
         title: "Top composers",
+        selected_slug: "top-composers",
         items: &crate::COMPOSERS,
         menu: &crate::MENU,
     })
 }
 
 fn composer(info: web::Path<String>) -> Result<HttpResponse> {
-    let items =
-        crate::filter_by_composer_name(&crate::LISTS, crate::composer_slug_to_name(info.to_string()));
+    let items = crate::filter_by_composer_name(
+        &crate::LISTS,
+        crate::composer_slug_to_name(info.to_string()),
+    );
     render_page(&ComposerTemplate {
         composerslug: crate::composer_slug_to_name(info.to_string()).as_str(),
+        selected_slug: "",
         items: &items,
         menu: &crate::MENU,
     })
 }
 
 fn list(info: web::Path<String>) -> Result<HttpResponse> {
-    let items = crate::filter_by_list_name(&crate::LISTS, crate::list_slug_to_name(info.to_string()));
+    let items =
+        crate::filter_by_list_name(&crate::LISTS, crate::list_slug_to_name(info.to_string()));
     render_page(&ListTemplate {
         listslug: crate::list_slug_to_name(info.to_string()).as_str(),
+        selected_slug: info.as_str(),
         items: &items,
         menu: &crate::MENU,
     })

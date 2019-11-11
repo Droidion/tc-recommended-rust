@@ -5,8 +5,8 @@ extern crate lazy_static;
 
 extern crate inflector;
 
-use inflector::cases::kebabcase::to_kebab_case;
 use csv::ReaderBuilder;
+use inflector::cases::kebabcase::to_kebab_case;
 use std::fs;
 
 mod web;
@@ -24,13 +24,13 @@ pub struct TopListItem {
 fn composer_slug_to_name(slug: String) -> String {
     match COMPOSERS.iter().find(|composer| composer.1 == slug) {
         Some(composer) => composer.0.clone(),
-        None => String::from("")
+        None => String::from(""),
     }
 }
 fn list_slug_to_name(slug: String) -> String {
     match MENU.iter().find(|item| item.1 == slug) {
         Some(item) => item.0.clone(),
-        None => String::from("")
+        None => String::from(""),
     }
 }
 fn name_to_slug(slug: String) -> String {
