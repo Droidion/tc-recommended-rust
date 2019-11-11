@@ -5,6 +5,7 @@ extern crate lazy_static;
 
 extern crate inflector;
 
+use inflector::cases::kebabcase::to_kebab_case;
 use csv::ReaderBuilder;
 use std::fs;
 
@@ -20,11 +21,20 @@ pub struct TopListItem {
     pub position: usize,
 }
 
-fn slug_to_name(slug: String) -> String {
-    slug.replace("-", " ")
+fn composer_slug_to_name(slug: String) -> String {
+    match COMPOSERS.iter().find(|composer| composer.1 == slug) {
+        Some(composer) => composer.0.clone(),
+        None => String::from("")
+    }
+}
+fn list_slug_to_name(slug: String) -> String {
+    match MENU.iter().find(|item| item.1 == slug) {
+        Some(item) => item.0.clone(),
+        None => String::from("")
+    }
 }
 fn name_to_slug(slug: String) -> String {
-    slug.replace(" ", "-").to_lowercase()
+    to_kebab_case(slug.as_str())
 }
 
 fn filter_by_list_name(

@@ -44,18 +44,18 @@ fn top_composers() -> Result<HttpResponse> {
 
 fn composer(info: web::Path<String>) -> Result<HttpResponse> {
     let items =
-        crate::filter_by_composer_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
+        crate::filter_by_composer_name(&crate::LISTS, crate::composer_slug_to_name(info.to_string()));
     render_page(&ComposerTemplate {
-        composerslug: to_title_case(&info).as_str(),
+        composerslug: crate::composer_slug_to_name(info.to_string()).as_str(),
         items: &items,
         menu: &crate::MENU,
     })
 }
 
 fn list(info: web::Path<String>) -> Result<HttpResponse> {
-    let items = crate::filter_by_list_name(&crate::LISTS, crate::slug_to_name(info.to_string()));
+    let items = crate::filter_by_list_name(&crate::LISTS, crate::list_slug_to_name(info.to_string()));
     render_page(&ListTemplate {
-        listslug: to_title_case(&info).as_str(),
+        listslug: crate::list_slug_to_name(info.to_string()).as_str(),
         items: &items,
         menu: &crate::MENU,
     })

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:300,400&display=swap');
 
 :root {
     --main-color: #ECEFF4;
@@ -34,7 +34,7 @@ a:hover {
 }
 
 h1, h2 {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 h1 {
@@ -43,7 +43,7 @@ h1 {
 
 h2 {
     font-size: 1.1rem;
-    margin-top: 1.6rem;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
 }
 
@@ -58,7 +58,7 @@ header {
     width: var(--global-desktop-width);
 }
 .title {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 1.8rem;
     padding: 1rem 0 .4rem 0;
 }
