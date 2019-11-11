@@ -11,12 +11,15 @@
     --global-desktop-width: 948px;
 
     --border-radius: .5rem;
+
+    --desktop-min-width: 961px;
 }
 
 html, body {
     font-size: 18px;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 body {
@@ -39,12 +42,25 @@ h1, h2 {
 
 h1 {
     font-size: 1.3rem;
+    text-align: center;
 }
+@media only screen and (min-width: 961px) {
+    h1 {
+        text-align: left;
+    }
+}
+
 
 h2 {
     font-size: 1.1rem;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
+    text-align: center;
+}
+@media only screen and (min-width: 961px) {
+    h2 {
+        text-align: left;
+    }
 }
 
 aside, .content, header, footer {
@@ -53,9 +69,15 @@ aside, .content, header, footer {
 }
 
 header {
-    margin: 1rem auto;
+    margin: 0 auto 1rem auto;
     text-align: center;
-    width: var(--global-desktop-width);
+    width: 100%;
+}
+@media only screen and (min-width: 961px) {
+    header {
+        margin: 1rem auto;
+        width: var(--global-desktop-width);
+    }
 }
 .title {
     font-family: 'Raleway', sans-serif;
@@ -70,9 +92,15 @@ footer {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto;
     padding: .5rem 0;
-    width: var(--global-desktop-width);
+    width: 100%;
+}
+@media only screen and (min-width: 961px) {
+    footer {
+        margin: 0 auto 2rem auto;
+        width: var(--global-desktop-width);
+    }
 }
 .icons {
     align-items: center;
@@ -96,25 +124,58 @@ footer {
 .wrapper {
     align-items: flex-start;
     display: flex;
+    flex-direction: column;
     margin: 0 auto 1rem auto;
-    width: var(--global-desktop-width);
+    width: 100%;
+}
+@media only screen and (min-width: 961px) {
+    .wrapper {
+        flex-direction: row;
+        width: var(--global-desktop-width);
+    }
 }
 
 .content {
-    flex: 1;
-    padding: .4rem 2rem 1rem 2rem;
+    padding: .4rem 1rem 1rem 1rem;
+}
+@media only screen and (min-width: 961px) {
+    .content {
+        flex: 1;
+        padding: .4rem 2rem 1rem 2rem;
+        width: initial;
+    }
 }
 
 aside {
-    margin-right: 1rem;
-    padding: .8rem 1.6rem;
-    position: -webkit-sticky;
-    position: sticky;
-    top: -.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: .8rem;
+    position: static;
+    text-align: center;
+}
+@media only screen and (min-width: 961px) {
+    aside {
+        margin-bottom: 0;
+        margin-right: 1rem;
+        padding: 0 1rem .8rem 1rem;
+        position: -webkit-sticky;
+        position: sticky;
+        text-align: left;
+        top: -.5rem;
+    }
+}
+
+aside div {
+    margin: 0 .5rem;
+    display: inline-block;
+}
+@media only screen and (min-width: 961px) {
+    aside div {
+        display: block;
+    }
 }
 
 aside div, .content div {
-    line-height: 2.2rem;
+    margin-top: .8rem;
 }
 
 .list-el-position {
