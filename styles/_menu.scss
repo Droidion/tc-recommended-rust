@@ -1,10 +1,12 @@
+@use "mixins";
+
 aside {
   margin-bottom: 1rem;
   padding-bottom: .8rem;
   position: static;
   text-align: center;
 
-  @include breakpoint() {
+  @include mixins.breakpoint() {
     margin-bottom: 0;
     margin-right: 1rem;
     padding: 0 1rem .8rem 1rem;
@@ -18,7 +20,7 @@ aside {
     margin: .8rem .5rem 0 .5rem;
     display: inline-block;
 
-    @include breakpoint() {
+    @include mixins.breakpoint() {
       display: block;
     }
   }

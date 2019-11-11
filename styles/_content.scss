@@ -1,7 +1,10 @@
+@use "mixins";
+@use "colors";
+
 .content {
   padding: .4rem 1rem 1rem 1rem;
 
-  @include breakpoint() {
+  @include mixins.breakpoint() {
     flex: 1;
     padding: .4rem 2rem 1rem 2rem;
     width: initial;
@@ -28,7 +31,7 @@
   }
 
   .list-el-work {
-    color: $accented-color-brighter;
+    color: colors.$accented-color-brighter;
     font-size: .9rem;
   }
 }

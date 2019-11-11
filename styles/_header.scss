@@ -1,11 +1,14 @@
+@use "mixins";
+@use "sizes";
+
 header {
   margin: 0 auto 1rem auto;
   text-align: center;
   width: 100%;
 
-  @include breakpoint() {
+  @include mixins.breakpoint() {
     margin: 1rem auto;
-    width: $global-desktop-width;
+    width: sizes.$global-desktop-width;
   }
 
   .title {

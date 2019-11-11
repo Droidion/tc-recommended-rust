@@ -1,3 +1,6 @@
+@use "mixins";
+@use "sizes";
+
 footer {
   align-items: center;
   display: flex;
@@ -6,9 +9,9 @@ footer {
   padding: .5rem 0;
   width: 100%;
 
-  @include breakpoint() {
+  @include mixins.breakpoint() {
     margin: 0 auto 2rem auto;
-    width: $global-desktop-width;
+    width: sizes.$global-desktop-width;
   }
 
   .author-ref {
