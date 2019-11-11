@@ -47,12 +47,12 @@ h2 {
     margin-bottom: 0.5rem;
 }
 
-aside, .content, header {
+aside, .content, header, footer {
     background-color: var(--accented-bg-color);
+    border-radius: var(--border-radius);
 }
 
 header {
-    border-radius: var(--border-radius);
     margin: 1rem auto;
     text-align: center;
     width: var(--global-desktop-width);
@@ -66,6 +66,33 @@ header {
     padding-bottom: 1rem;
 }
 
+footer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 2rem auto;
+    padding: .5rem 0;
+    width: var(--global-desktop-width);
+}
+.icons {
+    align-items: center;
+    display: flex;
+}
+.icons div {
+    margin-right: 1rem;
+}
+.icons div a {
+    display: block
+}
+.icons div a img {
+    display: block
+}
+
+.author-ref {
+    margin-left: 1rem;
+    font-size: .9rem;
+}
+
 .wrapper {
     align-items: flex-start;
     display: flex;
@@ -74,13 +101,11 @@ header {
 }
 
 .content {
-    border-radius: var(--border-radius);
     flex: 1;
     padding: .4rem 2rem 1rem 2rem;
 }
 
 aside {
-    border-radius: var(--border-radius);
     margin-right: 1rem;
     padding: .8rem 1.6rem;
     position: -webkit-sticky;

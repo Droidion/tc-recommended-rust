@@ -2,7 +2,6 @@ use crate::TopListItem;
 use actix_files as fs;
 use actix_web::{middleware, web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
-use inflector::cases::titlecase::to_title_case;
 
 #[derive(Template)]
 #[template(path = "top-composers.html")]
