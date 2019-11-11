@@ -1,0 +1,75 @@
+@import "fonts";
+@import "mixins";
+@import "colors";
+@import "sizes";
+
+@import "header";
+@import "footer";
+@import "menu";
+@import "content";
+
+html, body {
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  background-color: $main-bg-color;
+  color: $main-color;
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: $accented-color-darker;
+  text-decoration: none;
+
+  &:hover {
+    color: $selected-color;
+  }
+}
+
+h1, h2 {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+  font-size: 1.3rem;
+  text-align: center;
+
+  @include breakpoint() {
+    text-align: left;
+  }
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-top: 1.4rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+
+  @include breakpoint() {
+    text-align: left;
+  }
+}
+
+aside, .content, header, footer {
+  background-color: $accented-bg-color;
+  border-radius: $border-radius;
+}
+
+.wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 1rem auto;
+  width: 100%;
+
+  @include breakpoint() {
+    flex-direction: row;
+    width: $global-desktop-width;
+  }
+}
+
+

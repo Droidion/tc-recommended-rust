@@ -1,0 +1,35 @@
+footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: .5rem 0;
+  width: 100%;
+
+  @include breakpoint() {
+    margin: 0 auto 2rem auto;
+    width: $global-desktop-width;
+  }
+
+  .author-ref {
+    margin-left: 1rem;
+    font-size: .9rem;
+  }
+
+  .icons {
+    align-items: center;
+    display: flex;
+
+    div {
+      margin-right: 1rem;
+
+      a {
+        display: block;
+
+        img {
+          display: block
+        }
+      }
+    }
+  }
+}

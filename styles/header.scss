@@ -1,0 +1,20 @@
+header {
+  margin: 0 auto 1rem auto;
+  text-align: center;
+  width: 100%;
+
+  @include breakpoint() {
+    margin: 1rem auto;
+    width: $global-desktop-width;
+  }
+
+  .title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.8rem;
+    padding: 1rem 0 .4rem 0;
+  }
+
+  .subtitle {
+    padding-bottom: 1rem;
+  }
+}
