@@ -6,7 +6,7 @@ All content is a property of [Talk Classical](https://talkclassical.com) form me
 
 Exercise in doing a website with Rust.
 
-## Run in dev environment
+## Run in dev environment natively
 
 Have [Rust](https://www.rust-lang.org/tools/install) installed.
 
@@ -24,6 +24,14 @@ Compile and run Rust project:
 
 ```bash
 cargo run
+```
+
+## Run in development using Docker
+
+Have Docker installed.
+
+```bash
+docker-compose up -d
 ```
 
 ## Deploy
