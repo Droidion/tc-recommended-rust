@@ -79,7 +79,7 @@ pub fn start_server() {
             .route("/composer/{composerslug}", web::get().to(composer))
             .route("/{listslug}", web::get().to(list))
     })
-    .bind("127.0.0.1:8088")
+    .bind("0.0.0.0:8088")
     .unwrap()
     .run()
     .unwrap();
