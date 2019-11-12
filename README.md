@@ -26,6 +26,8 @@ Compile and run Rust project:
 cargo run
 ```
 
+Use `http://localhost:8088` to access the site.
+
 ## Run in development using Docker
 
 Have Docker installed.
@@ -33,6 +35,8 @@ Have Docker installed.
 ```bash
 docker-compose up -d
 ```
+
+Use `http://localhost:8088` to access the site.
 
 ## Deploy
 
