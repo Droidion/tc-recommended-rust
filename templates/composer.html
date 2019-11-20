@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>{{ composerslug }} | TalkClassical Recommended</title>
+<title>{{ composer_name }} | TalkClassical Recommended</title>
 {% endblock %}
 
 {% block content %}
-<h1>{{ composerslug }}</h1>
+<h1>{{ composer_name }}</h1>
 {% for item in items %}
 <h2><a href="/{{ item.1 }}">{{ item.0 }}</a></h2>
 {% for work in item.2 %}

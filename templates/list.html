@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>{{ listslug }} | TalkClassical Recommended</title>
+<title>{{ list_name }} | TalkClassical Recommended</title>
 {% endblock %}
 
 {% block content %}
-<h1>{{ listslug }}</h1>
+<h1>{{ list_name }}</h1>
 {% for item in items %}
 <div>
     <span class="list-el-position">{{ item.position }}</span>
