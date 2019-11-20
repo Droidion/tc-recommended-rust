@@ -16,18 +16,12 @@ mod web;
 /// Main source of data, works from all lists by all composers, in flat form
 #[derive(Debug)]
 pub struct TopListItem {
-    // Composer`s human readable name
-    pub composer_name: String,
-    // Composer`s slug for using in URL
-    pub composer_slug: String,
-    // Name of a single work
-    pub work: String,
-    // List`s human readable name
-    pub list_name: String,
-    // List`s slug for using in URL
-    pub list_slug: String,
-    // Work`s position in its list
-    pub position: usize,
+    pub composer_name: String, // Composer`s human readable name
+    pub composer_slug: String, // Composer`s slug for using in URL
+    pub work: String,          // Name of a single work
+    pub list_name: String,     // List`s human readable name
+    pub list_slug: String,     // List`s slug for using in URL
+    pub position: usize,       // Work`s position in its list
 }
 
 /// Convert URL slug to human readable name: "foo-bar" -> "Foo Bar"

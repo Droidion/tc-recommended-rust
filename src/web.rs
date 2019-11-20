@@ -9,42 +9,30 @@ use askama::Template;
 #[derive(Template)]
 #[template(path = "top-composers.html")]
 struct TopComposersTemplate<'a> {
-    // Page title
-    title: &'a str,
-    // Current page slug, for highlighting selected menu item
-    selected_slug: &'a str,
-    // Sorted list of best composers
-    items: &'a Vec<(String, String, usize)>,
-    // Dynamic part of site menu
-    menu: &'a Vec<(String, String, usize)>,
+    title: &'a str,                          // Page title
+    selected_slug: &'a str,                  // Current page slug, for showing selected menu item
+    items: &'a Vec<(String, String, usize)>, // Sorted list of best composers
+    menu: &'a Vec<(String, String, usize)>,  // Dynamic part of site menu
 }
 
 /// Payload for rendering a composer page
 #[derive(Template)]
 #[template(path = "composer.html")]
 struct ComposerTemplate<'a> {
-    // Human readable composer name
-    composer_name: &'a str,
-    // Current page slug, for highlighting selected menu item
-    selected_slug: &'a str,
-    // Works of a single composer grouped by lists
-    items: &'a Vec<(&'a str, &'a str, Vec<&'static TopListItem>)>,
-    // Dynamic part of site menu
-    menu: &'a Vec<(String, String, usize)>,
+    composer_name: &'a str, // Human readable composer name
+    selected_slug: &'a str, // Current page slug, for showing selected menu item
+    items: &'a Vec<(&'a str, &'a str, Vec<&'static TopListItem>)>, // Works of a single composer grouped by lists
+    menu: &'a Vec<(String, String, usize)>,                        // Dynamic part of site menu
 }
 
 /// Payload for rendering a single list page
 #[derive(Template)]
 #[template(path = "list.html")]
 struct ListTemplate<'a> {
-    // Human readable list name
-    list_name: &'a str,
-    // Current page slug, for highlighting selected menu item
-    selected_slug: &'a str,
-    // Works of single list
-    items: &'a Vec<&'a TopListItem>,
-    // Dynamic part of site menu
-    menu: &'a Vec<(String, String, usize)>,
+    list_name: &'a str,                     // Human readable list name
+    selected_slug: &'a str,                 // Current page slug, for showing selected menu item
+    items: &'a Vec<&'a TopListItem>,        // Works of single list
+    menu: &'a Vec<(String, String, usize)>, // Dynamic part of site menu
 }
 
 /// Helper for rendering a page with some data
