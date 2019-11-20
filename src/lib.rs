@@ -1,3 +1,5 @@
+//! Logic and helpers
+
 extern crate askama;
 
 #[macro_use]

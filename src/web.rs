@@ -1,3 +1,5 @@
+//! All about web server
+
 use crate::TopListItem;
 use actix_files as fs;
 use actix_web::{middleware, web, App, HttpResponse, HttpServer, Result};
