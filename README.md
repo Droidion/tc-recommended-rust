@@ -8,6 +8,8 @@ Exercise in doing a website with Rust.
 
 ## Run in dev environment natively
 
+If you just need to see if it works, use Docker (see below).
+
 Have [Rust](https://www.rust-lang.org/tools/install) installed.
 
 Have [Sass](https://sass-lang.com/install) installed as a command line utility.
@@ -28,7 +30,7 @@ cargo run
 
 Use `http://localhost:8088` to access the site.
 
-## Run in development using Docker
+## Run as a Docker container
 
 Have Docker installed.
 
@@ -37,7 +39,3 @@ docker-compose up -d
 ```
 
 Use `http://localhost:8088` to access the site.
-
-## Deploy
-
-Not yet implemented. Will use Docker.
