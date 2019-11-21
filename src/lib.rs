@@ -180,6 +180,42 @@ pub fn run() {
 mod tests {
     use super::*;
 
+    fn mock_list_tuple() -> Vec<(String, String, usize)> {
+        vec![
+            (String::from("Orchestral Works"), String::from("orchestral-works"), 123),
+            (String::from("Symphonies"), String::from("symphonies"), 123),
+        ]
+    }
+
+    lazy_static! {
+        static ref MOCK_TOP_LIST_ITEMS: Vec<TopListItem> = vec![
+            TopListItem {
+                composer_name: String::from("Beethoven"),
+                composer_slug: String::from("beethoven"),
+                work: String::from("Symphony No. 9 'Choral'"),
+                list_name: String::from("Symphonies"),
+                list_slug: String::from("symphonies"),
+                position: 99,
+            },
+            TopListItem {
+                composer_name: String::from("Sibelius"),
+                composer_slug: String::from("seethoven"),
+                work: String::from("Finlandia"),
+                list_name: String::from("Orchestral works"),
+                list_slug: String::from("orchestral-works"),
+                position: 14,
+            },
+            TopListItem {
+                composer_name: String::from("Beethoven"),
+                composer_slug: String::from("beethoven"),
+                work: String::from("Piano Sonata No. 32"),
+                list_name: String::from("Piano Works"),
+                list_slug: String::from("piano-works"),
+                position: 99,
+            },
+        ];
+    }
+
     #[test]
     fn test_name_to_slug() {
         assert_eq!(
@@ -196,11 +232,21 @@ mod tests {
 
     #[test]
     fn test_slug_to_name() {
-        let mock_list = vec![
-            (String::from("Foo Bar"), String::from("foo-bar"), 123),
-            (String::from("Hello World"), String::from("hello-world"), 123),
-        ];
-        assert_eq!(slug_to_name(&mock_list, String::from("hello-world")), "Hello World");
+        let mock_list =  mock_list_tuple();
+        assert_eq!(slug_to_name(&mock_list, String::from("orchestral-works")), "Orchestral Works");
         assert_eq!(slug_to_name(&mock_list, String::from("not-found")), "");
+    }
+
+    #[test]
+    fn test_filter_by_list_name() {
+        assert_eq!(filter_by_list_name(&MOCK_TOP_LIST_ITEMS, &String::from("Symphonies")).len(), 1);
+        assert_eq!(filter_by_list_name(&MOCK_TOP_LIST_ITEMS, &String::from("Unknown")).len(), 0);
+    }
+
+    #[test]
+    fn test_filter_by_composer_name() {
+        assert_eq!(filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Beethoven")).len(), 2);
+        assert_eq!(filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Beethoven"))[0].2.len(), 1);
+        assert_eq!(filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Shubert")).len(), 0);
     }
 }
