@@ -175,3 +175,32 @@ lazy_static! {
 pub fn run() {
     web::start_server();
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_name_to_slug() {
+        assert_eq!(
+            name_to_slug(String::from("Foo Bar")),
+            String::from("foo-bar")
+        );
+        assert_eq!(name_to_slug(String::from("")), String::from(""));
+        assert_eq!(name_to_slug(String::from("123")), String::from("123"));
+        assert_eq!(
+            name_to_slug(String::from(" foo bar ")),
+            String::from("foo-bar")
+        );
+    }
+
+    #[test]
+    fn test_slug_to_name() {
+        let mock_list = vec![
+            (String::from("Foo Bar"), String::from("foo-bar"), 123),
+            (String::from("Hello World"), String::from("hello-world"), 123),
+        ];
+        assert_eq!(slug_to_name(&mock_list, String::from("hello-world")), "Hello World");
+        assert_eq!(slug_to_name(&mock_list, String::from("not-found")), "");
+    }
+}
