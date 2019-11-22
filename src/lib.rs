@@ -13,6 +13,8 @@ use std::fs;
 
 mod web;
 
+type ListShortForm = (String, String, usize);
+
 /// Main source of data, works from all lists by all composers, in flat form
 #[derive(Debug)]
 pub struct TopListItem {
@@ -26,7 +28,7 @@ pub struct TopListItem {
 
 /// Convert URL slug to human readable name: "foo-bar" -> "Foo Bar"
 /// We substitute data from our main dictionary in app state, not converting strings directly
-fn slug_to_name(list: &Vec<(String, String, usize)>, slug: String) -> String {
+fn slug_to_name(list: &Vec<ListShortForm>, slug: String) -> String {
     // Only substitute if slug is found
     match list.iter().find(|item| item.1 == slug) {
         Some(item) => item.0.clone(),
@@ -105,7 +107,7 @@ fn top_list_from_csv() -> Vec<TopListItem> {
 }
 
 /// Build dynamic site menu based on the top lists parsed from csv
-fn menu(items: &'static Vec<TopListItem>) -> Vec<(String, String, usize)> {
+fn menu(items: &'static Vec<TopListItem>) -> Vec<ListShortForm> {
     let mut menu: Vec<(String, String)> = items
         .iter()
         .map(|el| (el.list_name.clone(), el.list_slug.clone()))
@@ -124,8 +126,8 @@ fn menu(items: &'static Vec<TopListItem>) -> Vec<(String, String, usize)> {
 /// Build the list of best composers based on the top lists parsed from csv
 fn top_composers(
     items: &'static Vec<TopListItem>,
-    menu: &'static Vec<(String, String, usize)>,
-) -> Vec<(String, String, usize)> {
+    menu: &'static Vec<ListShortForm>,
+) -> Vec<ListShortForm> {
     // Extract list of composers
     let mut composers: Vec<(String, String)> = items
         .iter()
@@ -134,7 +136,7 @@ fn top_composers(
     composers.sort();
     composers.dedup();
     // Add scores to the list of composers
-    let mut composers_with_scores: Vec<(String, String, usize)> = composers
+    let mut composers_with_scores: Vec<ListShortForm> = composers
         .iter()
         .map(|el| {
             // initialize score
@@ -167,9 +169,9 @@ lazy_static! {
     // All top lists in flat form
     static ref LISTS: Vec<TopListItem> = top_list_from_csv();
     // Site dynamic menu of top lists
-    static ref MENU: Vec<(String, String, usize)> = menu(&LISTS);
+    static ref MENU: Vec<ListShortForm> = menu(&LISTS);
     // List of best composers sorted by their calculated score
-    static ref COMPOSERS: Vec<(String, String, usize)> = top_composers(&LISTS, &MENU);
+    static ref COMPOSERS: Vec<ListShortForm> = top_composers(&LISTS, &MENU);
 }
 
 pub fn run() {
@@ -180,7 +182,7 @@ pub fn run() {
 mod tests {
     use super::*;
 
-    fn mock_list_tuple() -> Vec<(String, String, usize)> {
+    fn mock_list_tuple() -> Vec<ListShortForm> {
         vec![
             (String::from("Orchestral Works"), String::from("orchestral-works"), 123),
             (String::from("Symphonies"), String::from("symphonies"), 123),
