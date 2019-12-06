@@ -14,13 +14,20 @@
 </head>
 <body>
     <header>
-        <div class="title">TALKCLASSICAL TOP LISTS</div>
-        <div class="subtitle">Best works of classical music as voted by talkclassical.com members</div>
+        <div class="title">BEST WORKS OF CLASSICAL MUSIC</div>
+        <div class="subtitle">Top lists as voted by <a href="https://www.talkclassical.com/17996-compilation-tc-top-recommended.html">talkclassical.com</a> members</div>
     </header>
 
     <div class="wrapper">
         <aside>
             <div class="menu">
+                <div>
+                    {% if selected_slug == "credits" %}
+                    <span class="selected-menu-item">Credits</span>
+                    {% else %}
+                    <a href="/credits">Credits</a>
+                    {% endif %}
+                </div>
                 <div>
                     {% if selected_slug == "top-composers" %}
                     <span class="selected-menu-item">Top composers</span>
@@ -28,6 +35,7 @@
                     <a href="/top-composers">Top composers</a>
                     {% endif %}
                 </div>
+
                 {% for item in menu %}
                 <div>
                     {% if item.1 == selected_slug %}

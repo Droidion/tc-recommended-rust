@@ -5,6 +5,15 @@ use actix_files as fs;
 use actix_web::{middleware, web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
 
+/// Payload for credits page
+#[derive(Template)]
+#[template(path = "credits.html")]
+struct CreditsTemplate<'a> {
+    title: &'a str,                // Page title
+    selected_slug: &'a str,        // Current page slug, for showing selected menu item
+    menu: &'a Vec<ListShortForm>,  // Dynamic part of site menu
+}
+
 /// Payload for rendering sorted list of best composers page
 #[derive(Template)]
 #[template(path = "top-composers.html")]
@@ -40,6 +49,15 @@ fn render_page<T: askama::Template>(s: &T) -> Result<HttpResponse> {
     Ok(HttpResponse::Ok()
         .content_type("text/html")
         .body(&s.render().unwrap()))
+}
+
+/// Render credits
+fn credits() -> Result<HttpResponse> {
+    render_page(&CreditsTemplate {
+        title: "Credits",
+        selected_slug: "credits",
+        menu: &crate::MENU,
+    })
 }
 
 /// Render sorted list of best composers
@@ -83,6 +101,7 @@ pub fn start_server() {
             .wrap(middleware::Compress::default())
             .service(fs::Files::new("/static", "./static"))
             .route("/", web::get().to(top_composers))
+            .route("/credits", web::get().to(credits))
             .route("/top-composers", web::get().to(top_composers))
             .route("/composer/{composerslug}", web::get().to(composer))
             .route("/{listslug}", web::get().to(list))

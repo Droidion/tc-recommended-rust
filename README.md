@@ -32,7 +32,7 @@ Use `http://localhost:8088` to access the site.
 
 ## Run as a Docker container
 
-Have Docker installed.
+Have Docker and Docker Compose installed.
 
 ```bash
 docker-compose up -d
