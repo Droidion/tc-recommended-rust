@@ -1,6 +1,6 @@
 //! All about web server
 
-use crate::{TopListItem, ListShortForm};
+use crate::{ListShortForm, TopListItem};
 use actix_files as fs;
 use actix_web::{middleware, web, App, HttpResponse, HttpServer, Result};
 use askama::Template;
@@ -9,8 +9,8 @@ use askama::Template;
 #[derive(Template)]
 #[template(path = "top-composers.html")]
 struct TopComposersTemplate<'a> {
-    title: &'a str,                          // Page title
-    selected_slug: &'a str,                  // Current page slug, for showing selected menu item
+    title: &'a str,                // Page title
+    selected_slug: &'a str,        // Current page slug, for showing selected menu item
     items: &'a Vec<ListShortForm>, // Sorted list of best composers
     menu: &'a Vec<ListShortForm>,  // Dynamic part of site menu
 }
@@ -22,17 +22,17 @@ struct ComposerTemplate<'a> {
     composer_name: &'a str, // Human readable composer name
     selected_slug: &'a str, // Current page slug, for showing selected menu item
     items: &'a Vec<(&'a str, &'a str, Vec<&'static TopListItem>)>, // Works of a single composer grouped by lists
-    menu: &'a Vec<ListShortForm>,                        // Dynamic part of site menu
+    menu: &'a Vec<ListShortForm>,                                  // Dynamic part of site menu
 }
 
 /// Payload for rendering a single list page
 #[derive(Template)]
 #[template(path = "list.html")]
 struct ListTemplate<'a> {
-    list_name: &'a str,                     // Human readable list name
-    selected_slug: &'a str,                 // Current page slug, for showing selected menu item
-    items: &'a Vec<&'a TopListItem>,        // Works of single list
-    menu: &'a Vec<ListShortForm>, // Dynamic part of site menu
+    list_name: &'a str,              // Human readable list name
+    selected_slug: &'a str,          // Current page slug, for showing selected menu item
+    items: &'a Vec<&'a TopListItem>, // Works of single list
+    menu: &'a Vec<ListShortForm>,    // Dynamic part of site menu
 }
 
 /// Helper for rendering a page with some data

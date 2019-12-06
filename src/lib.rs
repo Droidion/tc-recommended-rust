@@ -184,7 +184,11 @@ mod tests {
 
     fn mock_list_tuple() -> Vec<ListShortForm> {
         vec![
-            (String::from("Orchestral Works"), String::from("orchestral-works"), 123),
+            (
+                String::from("Orchestral Works"),
+                String::from("orchestral-works"),
+                123,
+            ),
             (String::from("Symphonies"), String::from("symphonies"), 123),
         ]
     }
@@ -234,21 +238,41 @@ mod tests {
 
     #[test]
     fn test_slug_to_name() {
-        let mock_list =  mock_list_tuple();
-        assert_eq!(slug_to_name(&mock_list, String::from("orchestral-works")), "Orchestral Works");
+        let mock_list = mock_list_tuple();
+        assert_eq!(
+            slug_to_name(&mock_list, String::from("orchestral-works")),
+            "Orchestral Works"
+        );
         assert_eq!(slug_to_name(&mock_list, String::from("not-found")), "");
     }
 
     #[test]
     fn test_filter_by_list_name() {
-        assert_eq!(filter_by_list_name(&MOCK_TOP_LIST_ITEMS, &String::from("Symphonies")).len(), 1);
-        assert_eq!(filter_by_list_name(&MOCK_TOP_LIST_ITEMS, &String::from("Unknown")).len(), 0);
+        assert_eq!(
+            filter_by_list_name(&MOCK_TOP_LIST_ITEMS, &String::from("Symphonies")).len(),
+            1
+        );
+        assert_eq!(
+            filter_by_list_name(&MOCK_TOP_LIST_ITEMS, &String::from("Unknown")).len(),
+            0
+        );
     }
 
     #[test]
     fn test_filter_by_composer_name() {
-        assert_eq!(filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Beethoven")).len(), 2);
-        assert_eq!(filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Beethoven"))[0].2.len(), 1);
-        assert_eq!(filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Shubert")).len(), 0);
+        assert_eq!(
+            filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Beethoven")).len(),
+            2
+        );
+        assert_eq!(
+            filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Beethoven"))[0]
+                .2
+                .len(),
+            1
+        );
+        assert_eq!(
+            filter_by_composer_name(&MOCK_TOP_LIST_ITEMS, &String::from("Shubert")).len(),
+            0
+        );
     }
 }
