@@ -73,7 +73,7 @@ footer .icons div {
 footer .icons div a {
   display: block;
 }
-footer .icons div a img {
+footer .icons div a svg {
   display: block;
 }
 
@@ -186,6 +186,13 @@ h2 {
   h2 {
     text-align: left;
   }
+}
+
+svg {
+  fill: white;
+}
+svg:hover {
+  fill: #5E81AC;
 }
 
 aside, .content, header, footer {

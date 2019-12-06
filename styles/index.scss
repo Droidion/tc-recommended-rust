@@ -54,6 +54,14 @@ h2 {
   }
 }
 
+svg {
+  fill: white;
+
+  &:hover {
+    fill: colors.$selected-color;
+  }
+}
+
 aside, .content, header, footer {
   background-color: colors.$accented-bg-color;
   border-radius: sizes.$border-radius;
