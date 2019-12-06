@@ -100,6 +100,7 @@ pub fn start_server() {
         App::new()
             .wrap(middleware::Compress::default())
             .service(fs::Files::new("/static", "./static"))
+            .default_service(web::get().to(top_composers))
             .route("/", web::get().to(top_composers))
             .route("/credits", web::get().to(credits))
             .route("/top-composers", web::get().to(top_composers))
