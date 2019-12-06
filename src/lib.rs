@@ -152,7 +152,7 @@ fn top_composers(
                     .iter()
                     .find(|menu_item| menu_item.1 == composer_item.list_slug)
                 {
-                    Some(x) => score += 1000 * x.2 / composer_item.position,
+                    Some(x) => score += x.2 - composer_item.position + 1,
                     None => (),
                 }
             }
