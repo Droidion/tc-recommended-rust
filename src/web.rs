@@ -86,12 +86,17 @@ fn composer(info: web::Path<String>) -> Result<HttpResponse> {
 fn list(info: web::Path<String>) -> Result<HttpResponse> {
     let name = &crate::slug_to_name(&crate::MENU, info.to_string());
     let items = crate::filter_by_list_name(&crate::LISTS, name);
-    render_page(&ListTemplate {
-        list_name: name.as_str(),
-        selected_slug: info.as_str(),
-        items: &items,
-        menu: &crate::MENU,
-    })
+    if name.len() == 0 || items.len() == 0 {
+        top_composers()
+    } else {
+        render_page(&ListTemplate {
+            list_name: name.as_str(),
+            selected_slug: info.as_str(),
+            items: &items,
+            menu: &crate::MENU,
+        })
+    }
+
 }
 
 /// Start web server
