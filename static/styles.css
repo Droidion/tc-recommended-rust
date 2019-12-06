@@ -80,7 +80,6 @@ footer .icons div a img {
 aside {
   margin-bottom: 1rem;
   padding-bottom: 0.8rem;
-  position: static;
   text-align: center;
 }
 @media (min-width: 961px) {
@@ -88,18 +87,25 @@ aside {
     margin-bottom: 0;
     margin-right: 1rem;
     padding: 0 1rem 0.8rem 1rem;
-    position: -webkit-sticky;
-    position: sticky;
     text-align: left;
-    top: -0.5rem;
   }
 }
-aside div {
+aside .menu {
+  position: static;
+}
+@media (min-width: 961px) {
+  aside .menu {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1rem;
+  }
+}
+aside .menu div {
   margin: 0.8rem 0.5rem 0 0.5rem;
   display: inline-block;
 }
 @media (min-width: 961px) {
-  aside div {
+  aside .menu div {
     display: block;
   }
 }
@@ -188,7 +194,7 @@ aside, .content, header, footer {
 }
 
 .wrapper {
-  align-items: flex-start;
+  align-items: stretch;
   display: flex;
   flex-direction: column;
   margin: 0 auto 1rem auto;

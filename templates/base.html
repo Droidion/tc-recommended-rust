@@ -20,23 +20,24 @@
 
     <div class="wrapper">
         <aside>
-            <div>
-
-                {% if selected_slug == "top-composers" %}
-                <span class="selected-menu-item">Top composers</span>
-                {% else %}
-                <a href="/top-composers">Top composers</a>
-                {% endif %}
+            <div class="menu">
+                <div>
+                    {% if selected_slug == "top-composers" %}
+                    <span class="selected-menu-item">Top composers</span>
+                    {% else %}
+                    <a href="/top-composers">Top composers</a>
+                    {% endif %}
+                </div>
+                {% for item in menu %}
+                <div>
+                    {% if item.1 == selected_slug %}
+                    <span class="selected-menu-item">{{ item.0 }}</span>
+                    {% else %}
+                    <a href="/{{ item.1 }}">{{ item.0 }}</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
             </div>
-            {% for item in menu %}
-            <div>
-                {% if item.1 == selected_slug %}
-                <span class="selected-menu-item">{{ item.0 }}</span>
-                {% else %}
-                <a href="/{{ item.1 }}">{{ item.0 }}</a>
-                {% endif %}
-            </div>
-            {% endfor %}
         </aside>
         <div class="content">
             {% block content %}{% endblock %}
